@@ -1,6 +1,9 @@
 const {Request, Response} = require('express');
 const User = require('../models/user.model');
 const hashedPassword = require('../Utils/hashPassword')
+const passport = require('passport')
+require('../Authentication/auth');
+
 
 const createUserService = async(name, email, password) => {
     try{
@@ -41,7 +44,9 @@ const fetchAllUsersService = async() =>{
 
 }
 
-const loginAUserService = async (email) =>{
+
+const findAUserByEmailService = async (email) =>{
+
     try{
         const user = await User.findOne({email});
             if(user){
@@ -57,8 +62,26 @@ const loginAUserService = async (email) =>{
 }
 
 
+const authenticateUser = () =>{
+    passport.authenticate('google', {
+        scope: ['email', 'profile']
+    })
+}
+
+const callBackFn = () =>{
+    passport.authenticate('google', {
+        successRedirect: 'auth/callback/success',
+        failureRedirect: 'auth/callback/failure'
+    })
+}
+
+
+
 module.exports = {
     createUserService,
     fetchAllUsersService,
-    loginAUserService
+    findAUserByEmailService,
+    authenticateUser,
+    callBackFn
+
 }

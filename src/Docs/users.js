@@ -96,11 +96,33 @@ const userLogin = {
     }
 }
 
+const getLoggedInUser = {
+    tags: ['Users'],
+    security: [{ bearerAuth: []}],
+    summary: "Get the Logged In User",
+
+
+    responses:{
+        200: {
+            description: "User retrieved successfully",
+        },
+        404:{
+            description: "User not found"
+        },
+        500:{
+            description: "Internal server error"
+        }
+    }
+}
+
+
 
 module.exports = {
     userSchema,
     loginSchema,
     getUsers,
     createUser,
-    userLogin
+    userLogin,
+    getLoggedInUser
+
 };
