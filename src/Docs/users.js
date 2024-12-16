@@ -116,6 +116,7 @@ const getLoggedInUser = {
 }
 
 
+
 module.exports = {
     userSchema,
     loginSchema,
@@ -123,4 +124,5 @@ module.exports = {
     createUser,
     userLogin,
     getLoggedInUser
+
 };

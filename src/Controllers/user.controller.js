@@ -1,7 +1,9 @@
+
 const {fetchAllUsersService, createUserService, findAUserByEmailService} = require('../Services/user.services');
 const {generateAccessToken}  = require('../Utils/jsonwebtoken');
 const comparePassword = require('../Utils/comparePassword');
 require('../Authentication/auth')
+
 
 
 const registerUserController =  async(req, res) =>{
@@ -35,11 +37,13 @@ const registerUserController =  async(req, res) =>{
 const fetchAllUsersController = async(req, res) =>{
     try{
         const users = await fetchAllUsersService();
+
         if (!users){
             res.status(500).json({
                 message: error.message
             })
         }
+
         res.status(200).json({
             message: "All users fetched successfully",
             users: users
@@ -54,7 +58,9 @@ const loginAUserController = async(req, res) =>{
     try{
         const {email, password} = req.body;
 
+
         const user = await findAUserByEmailService(email)
+
         if (!user || user == null){
             res.status(404).json({
                 message: "Invalid credentials"
@@ -90,6 +96,7 @@ const loginAUserController = async(req, res) =>{
         console.error("Error Logging you in", err);
     }
 }
+
 
 const fetchLoggedInUser = async(req, res) =>{
     try{
@@ -142,6 +149,7 @@ const handleFailure = async(req, res) =>{
 }
 
 
+
 module.exports = {
     registerUserController,
     fetchAllUsersController,
@@ -149,4 +157,5 @@ module.exports = {
     fetchLoggedInUser,
     handleSuccess,
     handleFailure,
+
 }

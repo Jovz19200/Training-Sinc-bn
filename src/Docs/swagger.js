@@ -4,6 +4,7 @@ const { setup, serve} = require('swagger-ui-express');
 const{ home } = require('./home')
 const {loginSchema,userSchema, getUsers, createUser, userLogin, getLoggedInUser } = require('./users')
 
+
 const  env  = require('../Utils/env');
 
 const DocRouter = express.Router();
@@ -14,6 +15,7 @@ const options = {
         title: "TSinca 1.0.0 ",
         version: "1.0.0",
         description: "This is the documentation for the OTMS Backend"
+
     },
     servers: [
         {
@@ -48,6 +50,7 @@ const options = {
         },
         "/users/me":{
             get: getLoggedInUser
+
         }
     },
     
@@ -66,6 +69,7 @@ const options = {
                 bearerFormat: "JWT",
                 in: "header",
                 name: "Authorization",
+
             },
         },
     },

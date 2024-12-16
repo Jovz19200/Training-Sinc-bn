@@ -4,6 +4,7 @@ const hashedPassword = require('../Utils/hashPassword')
 const passport = require('passport')
 require('../Authentication/auth');
 
+
 const createUserService = async(name, email, password) => {
     try{
      
@@ -43,7 +44,9 @@ const fetchAllUsersService = async() =>{
 
 }
 
+
 const findAUserByEmailService = async (email) =>{
+
     try{
         const user = await User.findOne({email});
             if(user){
@@ -57,6 +60,7 @@ const findAUserByEmailService = async (email) =>{
         console.error("Error Logging in", error)
     }
 }
+
 
 const authenticateUser = () =>{
     passport.authenticate('google', {
@@ -72,10 +76,12 @@ const callBackFn = () =>{
 }
 
 
+
 module.exports = {
     createUserService,
     fetchAllUsersService,
     findAUserByEmailService,
     authenticateUser,
     callBackFn
+
 }
