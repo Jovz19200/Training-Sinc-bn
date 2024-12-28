@@ -14,4 +14,4 @@ catch(err) {
    
 }
 
-module.exports = connectDB;
+module.exports = connectDb;

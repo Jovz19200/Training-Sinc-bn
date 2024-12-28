@@ -1,5 +1,5 @@
 
-const {fetchAllUsersService, createUserService, findAUserByEmailService} = require('../Services/user.services');
+const {fetchAllUsersService, getSingleUser, createUserService, findAUserByEmailService, getUserTrainings, assignTrainingToUser} = require('../Services/user.services');
 const {generateAccessToken}  = require('../Utils/jsonwebtoken');
 const comparePassword = require('../Utils/comparePassword');
 require('../Authentication/auth')
@@ -8,7 +8,7 @@ require('../Authentication/auth')
 
 const registerUserController =  async(req, res) =>{
     try {
-        // console.log("Hellooo herea")
+    
     const {name, email, password} = req.body;
  
     const user = await createUserService(name, email, password);
@@ -16,7 +16,7 @@ const registerUserController =  async(req, res) =>{
     if (user){
        return res.status(201).json({
             message: "User created successfully",
-            user
+            user: user
         })
     }
     else{
@@ -46,6 +46,7 @@ const fetchAllUsersController = async(req, res) =>{
 
         res.status(200).json({
             message: "All users fetched successfully",
+            length: users.length,
             users: users
         })
     }
@@ -125,7 +126,7 @@ const fetchLoggedInUser = async(req, res) =>{
 const handleSuccess = async (req, res) =>{
     let user =  req.user
     try{
-        console.log(user);
+        // console.log(user);
 
     }
     catch(err){
@@ -148,6 +149,74 @@ const handleFailure = async(req, res) =>{
     }
 }
 
+const getUserTrainingsController = async(req, res) =>{
+    try{
+        const userId = req.params.id;
+        const user = await getUserTrainings(userId);
+
+        if (!user){
+            res.status(404).json({
+                message: "User not found"
+            })
+        }
+        else{
+            res.status(200).json({
+                message: "User trainings fetched successfully",
+                length: user.length,
+                data: user
+            })
+        }
+    }
+    catch(err){
+        console.error("Error fetching user trainings", err);
+    }
+}
+
+const assignTrainingToUserController = async(req, res) =>{
+    try{
+        const userId = req.params.userId;
+        const trainingId = req.params.trainingId;
+
+        const user = await assignTrainingToUser(userId, trainingId);
+
+        if (!user){
+            res.status(404).json({
+                message: "User not found"
+            })
+        }
+        else{
+            res.status(200).json({
+                message: "Training assigned to user successfully",
+                data: user
+            })
+        }
+    }
+    catch(err){
+        console.error("Error assigning training to user", err);
+    }
+}
+
+const getSingleUserController = async(req, res) =>{
+    try{
+        const userId = req.params.id;
+        const user = await getSingleUser(userId);
+
+        if (!user){
+            res.status(404).json({
+                message: "User not found"
+            })
+        }
+        else{
+            res.status(200).json({
+                message: "User fetched successfully",
+                data: user
+            })
+        }
+    }
+    catch(err){
+        console.error("Error fetching user", err);
+    }
+}
 
 
 module.exports = {
@@ -157,5 +226,8 @@ module.exports = {
     fetchLoggedInUser,
     handleSuccess,
     handleFailure,
+    getUserTrainingsController,
+    assignTrainingToUserController,
+    getSingleUserController
 
 }

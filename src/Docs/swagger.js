@@ -3,7 +3,8 @@ const app = express();
 const { setup, serve} = require('swagger-ui-express');
 const{ home } = require('./home')
 const {loginSchema,userSchema, getUsers, createUser, userLogin, getLoggedInUser } = require('./users')
-
+const {TrainingSchema, getAllTrainings, createTraining} = require('./training')
+const { createCategory, getAllCategories } = require('./categories')
 
 const  env  = require('../Utils/env');
 
@@ -27,7 +28,9 @@ const options = {
 
     tags: [
         {name: "Home", description: "Home Page"},
-        {name: "Users", description: "User related Endpoints"}
+        {name: "Users", description: "User related Endpoints"},
+        {name: "Training", description: "Training related Endpoints"},
+        {name: "Categories", description: "Category related Endpoints"},
     ],
 
     paths:
@@ -51,7 +54,24 @@ const options = {
         "/users/me":{
             get: getLoggedInUser
 
-        }
+        },
+        "/trainings":
+            {
+                get: getAllTrainings
+            },
+        "/trainings/register":
+            {
+                post: createTraining
+            },
+        "/categories":
+            {
+                get: getAllCategories
+            },
+        "/categories/create":
+            {
+                post: createCategory
+            },
+
     },
     
         
@@ -61,6 +81,7 @@ const options = {
         schemas:{
             User: userSchema,
             Login: loginSchema,
+            Training: TrainingSchema,
         },
         securitySchemes: {
             bearerAuth: {

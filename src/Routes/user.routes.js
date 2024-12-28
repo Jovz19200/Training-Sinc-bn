@@ -1,5 +1,5 @@
 
-const {fetchAllUsersController, registerUserController, loginAUserController, fetchLoggedInUser, handleSuccess, handleFailure} = require('../Controllers/user.controller')
+const {fetchAllUsersController, getSingleUserController, registerUserController, loginAUserController, fetchLoggedInUser, handleSuccess, handleFailure, assignTrainingToUserController, getUserTrainingsController} = require('../Controllers/user.controller')
 const {Router} = require('express');
 const isLoggedIn = require('../middlewares/isLoggedIn');
 const {authenticateUser, callBackFn} = require('../Services/user.services')
@@ -17,6 +17,9 @@ userRoutes.get('/auth/google', authenticateUser);
 userRoutes.get('/auth/google/callback', callBackFn);
 userRoutes.get('/auth/google/success', handleSuccess);
 userRoutes.get('/auth/google/failure',handleFailure);
+userRoutes.post('/assign-training/:userId/:trainingId', assignTrainingToUserController);
+userRoutes.get('/user-trainings/:id', getUserTrainingsController);
+userRoutes.get('/:id', getSingleUserController);
 
 
 module.exports = userRoutes;
