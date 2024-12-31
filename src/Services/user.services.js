@@ -67,18 +67,20 @@ const assignTrainingToUser = async (userId, trainingId) =>
     const user = await User.findById(userId);
 
     const training = await Training.findById(trainingId);
-    
-    // const trainingTitle = training.title;
-    // const userName = user.name;
 
     if (user && training) {
-        user.trainings.push(trainingId);
-        await user.save();
-
-        training.users.push(userId);
-        await training.save();
-
-        return user.trainings;
+        if (!user.trainings.includes(trainingId)){
+            user.trainings.push(trainingId);
+            await user.save();
+    
+            training.users.push(userId);
+            await training.save();
+    
+            return user.trainings;
+        }
+       else{
+        return "Training already assigned to user";
+       }
         
     } else {
         throw new Error("User or Training not found");
@@ -92,7 +94,7 @@ const assignTrainingToUser = async (userId, trainingId) =>
 const getUserTrainings = async (userId)  =>{
     try{
     const user = await User.findById(userId).populate('trainings');
-        
+
     return user.trainings;
     
     }catch(err){

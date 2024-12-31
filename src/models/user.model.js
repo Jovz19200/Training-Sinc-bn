@@ -51,10 +51,11 @@ const UserSchema = new mongoose.Schema({
             ref: 'Training'
         }
     ]
-})
+}, {timestamps: true })
 
 const Training = mongoose.model('Training', TrainingSchema);
 const User = mongoose.model('User', UserSchema);
+
 
 module.exports = {
     Training,

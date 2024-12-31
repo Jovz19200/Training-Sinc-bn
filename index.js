@@ -4,6 +4,7 @@ const { HomeRoute } = require('./src/Routes/homeRoute');
 const userRoutes  = require('./src/Routes/user.routes');
 const trainingRoutes = require('./src/Routes/training.routes');
 const categoriesRoutes = require('./src/Routes/categories.routes');
+const statsRouter = require('./src/Routes/stats.routes')
 
 const app = express();
 port = process.env.PORT;
@@ -17,6 +18,7 @@ app.use('/api-docs', DocRouter);
 app.use('/users', userRoutes);
 app.use('/trainings', trainingRoutes);
 app.use('/categories', categoriesRoutes);
+app.use('/stats', statsRouter )
 
 app.listen(port, () =>{
     console.log(`Server is running on port ${port}`);

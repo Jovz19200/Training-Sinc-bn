@@ -184,6 +184,11 @@ const assignTrainingToUserController = async(req, res) =>{
                 message: "User not found"
             })
         }
+        else if (user === "Training already assigned to user"){
+            res.status(409).json({
+                message: "Training already assigned to user"
+            })
+        }
         else{
             res.status(200).json({
                 message: "Training assigned to user successfully",

@@ -13,7 +13,7 @@ const createTrainingService = async (data) =>{
 
 const getAllTrainingsService = async () => {
     try{   
-        const trainings = await Training.find({}).populate('users');
+        const trainings = await Training.find({});
 
         if (!trainings) {
             throw new Error("No Trainings found");
@@ -27,7 +27,6 @@ const getAllTrainingsService = async () => {
 }
 
 
-// retrieve users assigned to a training
 const getUsersAssignedToTrainingService = async (trainingId) => {
     try {
         const training = await Training.findById(trainingId).populate('users')
