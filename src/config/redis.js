@@ -2,6 +2,7 @@ const Redis = require('ioredis');
 const env = require('../Utils/env');
 
 const redisClient = new Redis(env.redis_url)
+console.log("Heree", )
 
 redisClient.on('connect', ()=>{
     console.log("Redis connected successfully")

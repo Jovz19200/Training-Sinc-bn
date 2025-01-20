@@ -6,7 +6,7 @@ const HomeRoute = Router();
 HomeRoute.get('/', (request, response) =>{
     try{
         response.status(200).json({
-            message: 'Training API is working 😁'
+            message: 'OTMS API is working properly 😁'
         })
     }
     catch(error){
