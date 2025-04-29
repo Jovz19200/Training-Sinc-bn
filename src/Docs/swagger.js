@@ -5,6 +5,7 @@ const{ home } = require('./home')
 const {loginSchema,userSchema, getUsers, createUser, userLogin, getLoggedInUser } = require('./users')
 const {TrainingSchema, getAllTrainings, createTraining} = require('./training')
 const { createCategory, getAllCategories } = require('./categories')
+const { FeedbackSchema, createFeedback, getFeedbacksByTraining } = require('./feedback');
 
 const  env  = require('../Utils/env');
 
@@ -71,6 +72,12 @@ const options = {
             {
                 post: createCategory
             },
+        "/feedback": {
+                post: createFeedback
+            },
+        "/feedback/training/{trainingId}": {
+                get: getFeedbacksByTraining
+            },
 
     },
     
@@ -82,6 +89,7 @@ const options = {
             User: userSchema,
             Login: loginSchema,
             Training: TrainingSchema,
+            Feedback: FeedbackSchema,
         },
         securitySchemes: {
             bearerAuth: {

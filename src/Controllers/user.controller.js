@@ -21,7 +21,7 @@ const registerUserController =  async(req, res) =>{
     }
     else{
        return res.status(409).json({
-            message: "User already exist"
+            message: "Error creating a user"
         })
     }
   
